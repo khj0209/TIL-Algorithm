@@ -1,51 +1,65 @@
 package programmers;
 
-public class DFS_단어변환 {
-    static boolean[] visited;
+import java.util.LinkedList;
+import java.util.Queue;
 
-    public static void main(String[] args){
-        String[] words={"hot", "dot", "dog", "lot", "log"};
-        String begin="hit", target="cog";
+public class DFS_단어변환 {
+    public static void main(String[] args) {
+        String[] words = {"hot", "dot", "dog", "lot", "log","cog"};
+        String begin = "hit", target = "cog";
 
         System.out.println(solution(begin, target, words));
     }
 
-    static int min=Integer.MAX_VALUE;
+    static boolean[] visited;
+    static int answer = Integer.MAX_VALUE;
     public static int solution(String begin, String target, String[] words) {
-        int answer = 0;
+        Queue<Integer> q = new LinkedList<>();
 
-        for(int i=0;i< words.length;i++){
+        boolean c=false;
+        for (int i = 0; i < words.length; i++) {
+            if(target.equals(words[i])) c=true;
+        }
+        if(!c) return 0;
+
+        for (int i = 0; i < words.length; i++) {
+            if(check(begin,words[i]))
+                q.add(i);
+        }
+
+        while(!q.isEmpty()){
             visited=new boolean[words.length];
-            if(isPossible(begin, words[i])) {
-                visited[i]=true;
-                dfs(1, i, target, words);
-            }
+            int tmp = q.poll();
+            visited[tmp]=true;
+            DFS(words, target, tmp,1);
         }
-        answer=min==Integer.MAX_VALUE?0:min;
 
-        return answer;
+        return answer==Integer.MAX_VALUE?0:answer;
     }
 
-    public static void dfs(int deps, int idx, String target, String[] words){
-        if(idx==words.length) return;
-
-        for(int i=0;i< words.length;i++) {
-            if (isPossible(words[idx], words[i]) && !visited[i]) {
-                visited[i]=true;
-                dfs(deps+1, i, target, words);
-            }
-        }
-    }
-
-    public static boolean isPossible(String begin, String word) {
-        int comlen=0;
+    private static boolean check(String begin, String word) {
+        int s=0;
         for(int i=0;i<begin.length();i++){
-            if(begin.charAt(i)!=word.charAt(i)) comlen++;
+            if(begin.charAt(i)!=word.charAt(i))
+                s++;
         }
-        return comlen==1?true:false;
+        return s==1?true:false;
+    }
+
+    private static void DFS(String[] words, String target, int tmp, int c) {
+        if(c==words.length){
+            return;
+        }
+        if(words[tmp].equals(target)){
+            answer=answer<c?answer:c;
+            return;
+        }
+        for(int i=0;i< words.length;i++){
+            if(!visited[i] && check(words[tmp],words[i])){
+                visited[i]=true;
+                DFS(words,target, i,c+1);
+                visited[i]=false;
+            }
+        }
     }
 }
-//if(isPossible(words[idx],target)){
-//    min=min<deps+1?min:deps+1;
-//    return;
-//}
