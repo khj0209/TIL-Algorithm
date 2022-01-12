@@ -23,14 +23,17 @@ public class level3 {
 
         for(int i=0;i<cmd.length;i++){
             if(cmd[i].charAt(0)=='U'){
-                k-=Character.getNumericValue(cmd[i].charAt(2));
+                k-=Integer.parseInt(cmd[i].substring(2, cmd[i].length()));
             }else if(cmd[i].charAt(0)=='D'){
-                k+=Character.getNumericValue(cmd[i].charAt(2));
-            }else if(cmd[i].charAt(0)=='C'){
+                k+=Integer.parseInt(cmd[i].substring(2, cmd[i].length()));
+            }
+
+            else if(cmd[i].charAt(0)=='C'){
                 del.push(list.get(k));
                 list.remove(k);
                 if(k==list.size()) k--;
-            }else{
+            }
+            else{
                 int tmp = del.pop();
 
                 if(tmp<list.get(k)){
@@ -40,6 +43,7 @@ public class level3 {
                 else addList(tmp);
             }
         }
+
         for(int i=0;i< list.size();i++){
             l[list.get(i)]=true;
         }

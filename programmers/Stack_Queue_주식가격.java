@@ -23,22 +23,6 @@ public class Stack_Queue_주식가격 {
             }
         }
 
-//        int[] num=new int[100001];
-//        Stack<Integer> s = new Stack<>();
-//
-//        //Stack에 마지막 제외 싹다 순서대로 넣고
-//        for(int i=0;i< prices.length-1;i++){
-//            s.push(prices[i]);
-//        }
-//
-//        for(int i= prices.length-1;i>=0;i--){
-//            int tmp = s.pop();
-//
-//            for(int j=0;j<tmp;j++){
-//
-//            }
-//        }
-
         return answer;
     }
 }
