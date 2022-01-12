@@ -12,13 +12,13 @@ public class Stack_Queue_주식가격 {
     public static int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
 
-        for(int i=0;i< prices.length;i++){
+        for(int i=0;i<prices.length;i++){
             int t=0;
-            for(int j=i;j< prices.length-1;j++){
+            for(int j=i;j<prices.length-1;j++){
                 if(prices[i]>prices[j]){
                     answer[i]=t;
                     break;
-                }else if(j== prices.length-2) answer[i]=++t;
+                }else if(j==prices.length-2) answer[i]=++t;
                 t++;
             }
         }
